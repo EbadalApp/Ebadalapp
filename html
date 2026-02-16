@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ebadal App</title>
+<style>
+body { font-family: Arial, sans-serif; margin:0; background:#f4f4f4; }
+header { background: linear-gradient(90deg, #007bff, #00c6ff); color:white; padding:20px; text-align:center; }
+header h1 { margin:0; font-size:2em; }
+nav { display:flex; justify-content:center; background:#0056b3; }
+nav a { color:white; text-decoration:none; margin:0 15px; padding:10px; font-weight:bold; }
+.container { max-width:700px; margin:auto; background:white; padding:20px; border-radius:10px; margin-top:20px; }
+input[type="number"], select { width:100%; padding:10px; margin:10px 0; border-radius:5px; border:1px solid #ccc; }
+button { padding:10px 20px; background:#28a745; color:white; border:none; border-radius:5px; cursor:pointer; font-weight:bold; }
+.result-card { background:#e2e3e5; padding:15px; border-radius:8px; margin-top:20px; }
+.logo { width:50px; vertical-align:middle; margin-right:10px; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Ebadal App</h1>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="profile.html">Profile</a>
+    <a href="#">Help</a>
+    <a href="#">Log Out</a>
+</nav>
+
+<div class="container">
+    <h2>Isku Beddel Lacagta</h2>
+    <input type="number" id="amount" placeholder="Tusaale: 50000">
+    <select id="exchange">
+        <option value="edahab-zaad">E-dahab → Zaad</option>
+        <option value="zaad-edahab">Zaad → E-dahab</option>
+    </select>
+    <button onclick="calculate()">Bedel</button>
+
+    <div id="result"></div>
+
+    <h3>Shirkadaha</h3>
+    <p><img src="telesom-logo.png" class="logo"> Telesom - Host</p>
+    <p><img src="somtel-logo.png" class="logo"> Somtel - Sender</p>
+</div>
+
+<script>
+function calculate(){
+    let amount = Number(document.getElementById("amount").value);
+    let exchange = document.getElementById("exchange").value;
+    let fee = 0.015; // 1.5%
+    let resultDiv = document.getElementById("result");
+    let converted = 0;
+    let edahabNumber = "657000992";
+    let zaadNumber = "638867832";
+    let wakiil = "Khaalid Ahmed";
+
+    if(exchange === "edahab-zaad"){
+        converted = amount + (amount*fee);
+        resultDiv.innerHTML = `<div class="result-card">
+            <p>Host: Telesom (${edahabNumber})</p>
+            <p>Sender: Somtel (${zaadNumber})</p>
+            <p>Wakiil: ${wakiil}</p>
+            <p>Amount galinaya: ${amount}</p>
+            <p>Amount la helayo: ${converted.toFixed(0)}</p>
+            <button onclick="window.open('https://wa.me/${edahabNumber}?text=Waxaan rabaa exchange')">WhatsApp Somali</button>
+        </div>`;
+    } else {
+        converted = amount + (amount*fee);
+        resultDiv.innerHTML = `<div class="result-card">
+            <p>Host: Somtel (${zaadNumber})</p>
+            <p>Sender: Telesom (${edahabNumber})</p>
+            <p>Wakiil: ${wakiil}</p>
+            <p>Amount galinaya: ${amount}</p>
+            <p>Amount la helayo: ${converted.toFixed(0)}</p>
+            <button onclick="window.open('https://wa.me/${zaadNumber}?text=Waxaan rabaa exchange')">WhatsApp Somali</button>
+        </div>`;
+    }
+}
+</script>
+</body>
+  </html>
